@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+nav {
+  border: 1px solid black;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+.navLinks {
+  border: 1px solid black;
+  width: 50%;
+  display: flex;
+  padding: 10px;
+  justify-content: space-around;
+  align-items: center;
+}
+.navLinks a {
+  text-decoration: none;
+  font-size: x-large;
+  color: black;
+}
