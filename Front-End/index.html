@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <title>PWS</title>
   </head>
@@ -19,9 +19,36 @@
         <a href="signup.html">SignUp</a>
         <a href="">Profile <i class="fas fa-user-circle"></i></a>
         <!-- Logout (Should append dynamically)-->
-        <!-- <a href=""><i class="fas fa-sign-out-alt"></i></a> --> 
+        <!-- <a href=""><i class="fas fa-sign-out-alt"></i></a> -->
       </div>
     </nav>
+    <h1 class="center white mtop-20">Main Features Of PWS Application</h1>
+    <div class="features_div">
+      <div class="sub_features" onclick="walletService()">
+        <i class="fa fa-wallet"></i>
+        <p>Wallet Services</p>
+      </div>
+      <div class="sub_features" onclick="fundService()">
+        <i class="fas fa-hand-holding-usd"></i>
+        <p>Funds transfer/ Self deposit</p>
+      </div>
+      <div class="sub_features" onclick="accountService()">
+        <i class="fa-regular fa-credit-card"></i>
+        <p>Bank Account Management</p>
+      </div>
+      <div class="sub_features" onclick="billService()">
+        <i class="fa fa-file-invoice-dollar"></i>
+        <p>Add Payment Bills</p>
+      </div>
+      <div class="sub_features" onclick="beneficiaryService()">
+        <i class="fa-solid fa-users-gear"></i>
+        <p>Beneficiary Management</p>
+      </div>
+      <div class="sub_features" onclick="transactionService()">
+        <i class="fa-sharp fa-solid fa-receipt"></i>
+        <p>Transaction history/ Recept</p>
+      </div>
+    </div>
   </body>
 </html>
 <script src="./js/main.js"></script>

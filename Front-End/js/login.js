@@ -1,3 +1,6 @@
+// let domain = "https://paywal-app-production.up.railway.app"; // cloud
+let domain = "http://localhost:8484"; // local
+
 document.querySelector("form").addEventListener("submit", () => {
   login(event);
 });
@@ -23,7 +26,7 @@ function login(e) {
     redirect: "follow",
   };
 
-  fetch("http://localhost:8484/pws/login", requestOptions)
+  fetch(`${domain}/pws/login`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
