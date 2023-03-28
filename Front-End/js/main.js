@@ -1,33 +1,69 @@
+localStorage.setItem("uuid", "raghu");
 
-let key = localStorage.getItem('uuid') || null;
+let key = localStorage.getItem("uuid") || null;
+
+document.querySelector("body").onload = () => {
+  loginSucc();
+};
 
 function loginCheck() {
-    if (key == null) alert("Login first..");
-    
-    window.location.href = "login.html";
+  if (key == null || key == undefined || key == "null") {
+    if (window.confirm("Login first..")) {
+      window.location.href = "login.html";
+    }
+  }
 }
 
-
 function walletService() {
-    loginCheck();
+  loginCheck();
 }
 
 function fundService() {
-    loginCheck();
+  loginCheck();
 }
 
 function accountService() {
-    loginCheck();
+  loginCheck();
 }
 
 function billService() {
-    loginCheck();
+  loginCheck();
 }
 
 function beneficiaryService() {
-    loginCheck();
+  loginCheck();
 }
 
 function transactionService() {
-    loginCheck();
+  loginCheck();
+}
+
+function loginSucc() {
+  key = localStorage.getItem("uuid");
+
+  if (key != null && key != "null" && key != undefined) {
+    // Create a new Font Awesome icon element
+    let icon = document.createElement("i");
+    icon.classList.add("fas", "fa-sign-out-alt");
+    // On click logout method will be called..
+    icon.onclick = () => {
+      logout();
+    };
+
+    // Append the anchor element to the div
+    let div = document.querySelector(".navLinks");
+    div.appendChild(icon);
+  } else {
+    let icon = document.querySelector(".fa-sign-out-alt");
+    if (icon) {
+      icon.remove();
+    }
+  }
+}
+
+function logout() {
+  localStorage.setItem("uuid", null);
+
+  loginSucc();
+  // console.log("logout");
 }
