@@ -27,7 +27,24 @@ function login(e) {
   };
 
   fetch(`${domain}/pws/login`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log("error", error));
+    .then((response) => {
+      if (response.status == 200) {
+        response.text().then(res => {
+          localStorage.setItem('uuid', res);
+
+          window.location.href = "index.html";
+        });  
+      }
+      else {
+        if (window.confirm("Unnable to Login " +"/n"+"Press OK to Register to PWS application")) {
+          window.location.href = "signup.html";
+        }
+      }
+    })
+    .catch((error) => {
+      // if (window.confirm("Unnable to Login " +"/n"+"Press OK to Register to PWS application"+"/n"+`Error:${error}`)) {
+      //   window.location.href = "signup.html";
+      // }
+      // console.log(error);
+    });
 }

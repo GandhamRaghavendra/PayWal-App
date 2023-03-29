@@ -1,5 +1,3 @@
-localStorage.setItem("uuid", "raghu");
-
 let key = localStorage.getItem("uuid") || null;
 
 document.querySelector("body").onload = () => {
@@ -62,6 +60,18 @@ function loginSucc() {
 }
 
 function logout() {
+  let key = localStorage.getItem('uuid');
+
+  var requestOptions = {
+    method: "GET",
+    redirect: "follow",
+  };
+  
+  fetch(`http://localhost:8484/pws/logout?key=${key}`, requestOptions)
+  .then((response) => response.text())
+  .then((result) => console.log(result))
+  .catch((error) => console.log("error", error));
+  
   localStorage.setItem("uuid", null);
 
   loginSucc();
