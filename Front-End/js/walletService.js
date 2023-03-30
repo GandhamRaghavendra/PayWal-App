@@ -79,6 +79,29 @@ function editMethod() {
   }
 }
 
+// This Function is  used to load the User Data with the Key present in LS..
+function loadData() {
+  let key = localStorage.getItem("uuid");
+
+  if (key != null && key != "null" && key != undefined) {
+    let requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
+      .then((response) => {
+        if (response.status == 200) {
+          response.text().then((res) => {
+            localStorage.setItem("data", res);
+          });
+        }
+      })
+      // .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  }
+}
+
 // Cancel Method
 function cancel() {
   localStorage.setItem("buttonValue", 0);
@@ -112,28 +135,32 @@ function UpdateNameAndPass(name, pass) {
     window.location.reload();
   } else {
     // ** MethodCall for Updating Name And Pass **
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    let raw = JSON.stringify({
       name: `${name}`,
       password: `${pass}`,
     });
 
-    var requestOptions = {
-      method: "POST",
+    let requestOptions = {
+      method: "PUT",
       headers: myHeaders,
       body: raw,
       redirect: "follow",
     };
 
     fetch(`${domain}/pws/wallet/update?kye=${key}`, requestOptions)
-        .then((response) => {
-            if (response.status == 202) {
-              
-          }
+      .then((response) => {
+        if (response.status == 202) {
+          loadData();
+
+          setTimeout(() => {
+            wallet();
+          }, 2000);
+        }
       })
-    //   .then((result) => console.log(result))
+      //   .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
     // ** MethodCall for Updating Name And Pass ** (END)..
   }
