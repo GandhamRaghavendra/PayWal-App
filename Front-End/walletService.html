@@ -10,8 +10,35 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="./css/main.css" />
+    <style>
+      .update-wallet-div {
+        width: 80%;
+        border: 1px solid black;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .details-div {
+        width: 50%;
+        display: flex;
+      }
+      .update-wallet-div p,
+      .update-wallet-div b {
+        padding-left: 10px;
+      }
+      button {
+        width: 5%;
+        height: 40px;
+        background-color: green;
+      }
+      .red {
+        color: red;
+        background-color: black;
+      }
+    </style>
   </head>
-  <body>
+  <body onload="">
     <nav>
       <h1>PayWal</h1>
       <div class="navLinks">
@@ -20,9 +47,117 @@
       </div>
     </nav>
     <h1 class="center white mtop-20">PWS (Wallet Service)</h1>
+    <div class="update-wallet-div">
+      <div class="details-div">
+        <b>Name:</b>
+        <p class="name"></p>
+        <b>Password:</b>
+        <p class="pass">*********</p>
+      </div>
+      <button class="edit" onclick="edit()">Edit</button>
+    </div>
   </body>
 </html>
 
 <script>
-    
+  window.addEventListener("load", () => {
+    wallet();
+  });
+
+  function wallet() {
+    localStorage.setItem("buttonValue", 0);
+    let key = localStorage.getItem("uuid");
+    let obj = JSON.parse(localStorage.getItem("data"));
+
+    console.log(obj);
+
+    document.querySelector(
+      ".welcomeTag"
+    ).innerText = `Welcome ${obj.customer.name}..`;
+    document.querySelector(".name").innerText = `${obj.customer.name}`;
+  }
+
+  function edit() {
+    let val = localStorage.getItem("buttonValue");
+
+    if (val == 0) {
+      localStorage.setItem("buttonValue", 1);
+
+      // Here we are making the field editable..
+      let name = document.querySelector(".name");
+      name.setAttribute("contenteditable", "true");
+      name.classList.add("red");
+
+      // Here we are making the field editable..
+      let pass = document.querySelector(".pass");
+      pass.setAttribute("contenteditable", "true");
+      pass.classList.add("red");
+
+      // Create a new button element
+      let saveBtn = document.createElement("button");
+
+      // Set the button text
+      saveBtn.innerHTML = "Save";
+
+      //adding class
+      saveBtn.classList.add("save");
+
+      // OnClick SaveBtn
+      saveBtn.onclick = () => {
+        let name = document.querySelector(".name").innerText;
+        let pass = document.querySelector(".pass").innerText;
+
+        UpdateNameAndPass(name, pass);
+      };
+
+      // Create a new button element
+      let cancelBtn = document.createElement("button");
+
+      // Set the button text
+      cancelBtn.innerHTML = "Cancel";
+
+      // adding class
+      cancelBtn.classList.add("cancel");
+
+      // Onclick cancleBtn
+      cancelBtn.onclick = () => {
+        cancel();
+        console.log("Cancle");
+      };
+
+      document.querySelector(".update-wallet-div").appendChild(saveBtn);
+      document.querySelector(".update-wallet-div").appendChild(cancelBtn);
+    }
+  }
+
+  function cancel() {
+    localStorage.setItem("buttonValue", 0);
+
+    // Here we are making the field editable..
+    let name = document.querySelector(".name");
+    name.setAttribute("contenteditable", "false");
+    name.classList.remove("red");
+
+    // Here we are making the field editable..
+    let pass = document.querySelector(".pass");
+    pass.setAttribute("contenteditable", "false");
+    pass.classList.remove("red");
+
+    // Removing save and cancel buttons..
+    document
+      .querySelector(".update-wallet-div")
+      .removeChild(document.querySelector(".save"));
+    document
+      .querySelector(".update-wallet-div")
+      .removeChild(document.querySelector(".cancel"));
+  }
+
+  function UpdateNameAndPass(name, pass) {
+    if (pass == "*********" || pass.length < 6 || name.length < 6) {
+      alert("Give Proper Name and Password To update");
+      window.location.reload();
+    } else {
+      console.log(name, pass);
+    }
+  }
 </script>

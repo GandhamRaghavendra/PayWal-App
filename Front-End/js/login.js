@@ -35,6 +35,8 @@ function login(e) {
 
           // Storing the Key to LS..
           localStorage.setItem("uuid", res);
+
+          alert("Login Successful");
           
           // Directing to Index.html..
           window.location.href = "index.html";

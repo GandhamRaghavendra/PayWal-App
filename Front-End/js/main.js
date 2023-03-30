@@ -105,6 +105,7 @@ function logout() {
     .catch((error) => console.log("error", error));
 
   localStorage.setItem("uuid", null);
+  localStorage.setItem("data", null);
 
   loginSucc();
   // console.log("logout");
