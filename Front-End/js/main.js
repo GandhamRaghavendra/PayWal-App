@@ -72,7 +72,6 @@ function loadData() {
   let key = localStorage.getItem("uuid");
 
   if (key != null && key != "null" && key != undefined) {
-
     var requestOptions = {
       method: "GET",
       redirect: "follow",
@@ -81,8 +80,8 @@ function loadData() {
     fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
       .then((response) => {
         if (response.status == 200) {
-          response.text().then(res => {
-            localStorage.setItem('data', res);
+          response.text().then((res) => {
+            localStorage.setItem("data", res);
           });
         }
       })
