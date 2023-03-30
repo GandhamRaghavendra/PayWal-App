@@ -9,6 +9,7 @@ function submit(event) {
   event.preventDefault();
 
   let myHeaders = new Headers();
+  
   myHeaders.append("Content-Type", "application/json");
 
   let mobile = document.getElementById("mobile").value;
@@ -29,7 +30,21 @@ function submit(event) {
   };
 
   fetch(`${domain}/pws/register`, requestOptions)
-    .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((response) => {
+      if (response.status == 200) {
+        alert("SignUp Successful");
+
+        window.location.href = "index.html";
+      } else {
+        response.text().then((res) => {
+          let obj = JSON.parse(res);
+
+          alert(`${obj.message}`);
+
+          window.location.reload();
+        });
+      }
+    })
+    // .then((result) => console.log(result))
     .catch((error) => console.log("error", error));
 }

@@ -5,6 +5,8 @@ document.querySelector("form").addEventListener("submit", () => {
   login(event);
 });
 
+let loadingScreen = document.querySelector(".loading-screen");
+
 function login(e) {
   e.preventDefault();
 
@@ -30,15 +32,24 @@ function login(e) {
     .then((response) => {
       if (response.status == 200) {
         response.text().then(res => {
-          localStorage.setItem('uuid', res);
 
+          // Storing the Key to LS..
+          localStorage.setItem("uuid", res);
+          
+          // Directing to Index.html..
           window.location.href = "index.html";
         });  
       }
       else {
-        if (window.confirm("Unnable to Login " +"/n"+"Press OK to Register to PWS application")) {
-          window.location.href = "signup.html";
-        }
+        response.text().then(res => {
+
+          let obj = JSON.parse(res);
+
+          if (window.confirm(`${obj.message}`+" OR Press OK to Register to PWS application")) {
+            window.location.href = "signup.html";
+          }
+          
+        })
       }
     })
     .catch((error) => {
