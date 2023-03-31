@@ -23,6 +23,7 @@ function wallet() {
     ".welcomeTag"
   ).innerText = `Welcome ${obj.customer.name}..`;
   document.querySelector(".name").innerText = `${obj.customer.name}`;
+  document.querySelector(".pass").innerText = `*********`;
 }
 
 // EditMethod

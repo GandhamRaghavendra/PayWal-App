@@ -1,0 +1,27 @@
+.update-wallet-div {
+        width: 80%;
+        border: 1px solid black;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: auto;
+        margin-top: 20px;
+      }
+      .details-div {
+        width: 50%;
+        display: flex;
+      }
+      .update-wallet-div p,
+      .update-wallet-div b {
+        padding-left: 10px;
+      }
+      button {
+        width: 5%;
+        height: 40px;
+        background-color: green;
+      }
+      .red {
+        color: red;
+        background-color: black;
+      }
