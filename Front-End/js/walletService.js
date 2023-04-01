@@ -1,7 +1,8 @@
 // let domain = "https://paywal-app-production.up.railway.app"; // cloud
 let domain = "http://localhost:8484"; // local
 
-
+// import loadData from main.js file..!
+import { loadData } from "./common.js";
 
 // Onload Wallet Method will be called
 window.addEventListener("load", () => {
@@ -83,27 +84,27 @@ function editMethod() {
 }
 
 // This Function is  used to load the User Data with the Key present in LS..
-function loadData() {
-  let key = localStorage.getItem("uuid");
+// function loadData() {
+//   let key = localStorage.getItem("uuid");
 
-  if (key != null && key != "null" && key != undefined) {
-    let requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
+//   if (key != null && key != "null" && key != undefined) {
+//     let requestOptions = {
+//       method: "GET",
+//       redirect: "follow",
+//     };
 
-    fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
-      .then((response) => {
-        if (response.status == 200) {
-          response.text().then((res) => {
-            localStorage.setItem("data", res);
-          });
-        }
-      })
-      // .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  }
-}
+//     fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
+//       .then((response) => {
+//         if (response.status == 200) {
+//           response.text().then((res) => {
+//             localStorage.setItem("data", res);
+//           });
+//         }
+//       })
+//       // .then((result) => console.log(result))
+//       .catch((error) => console.log("error", error));
+//   }
+// }
 
 // Cancel Method
 function cancel() {

@@ -1,6 +1,9 @@
 // let domain = "https://paywal-app-production.up.railway.app"; // cloud
 let domain = "http://localhost:8484"; // local
 
+// import loadData from main.js file..!
+import { loadData } from "./common.js";
+
 let key = localStorage.getItem("uuid") || null;
 
 document.querySelector("body").onload = () => {
@@ -49,7 +52,6 @@ function accountService() {
   console.log("acc");
 }
 
-
 // Adding OnClick to bill_service div..!
 document.querySelector(".bill_service").addEventListener("click", () => {
   billService();
@@ -60,7 +62,6 @@ function billService() {
   console.log("acc");
 }
 
-
 // Adding OnClick to beneficiary_service div..!
 document.querySelector(".beneficiary_service").addEventListener("click", () => {
   beneficiaryService();
@@ -70,7 +71,6 @@ function beneficiaryService() {
   loginCheck();
   console.log("acc");
 }
-
 
 // Adding OnClick to transaction_service div..!
 document.querySelector(".transaction_service").addEventListener("click", () => {
@@ -104,29 +104,6 @@ function loginSucc() {
     if (icon) {
       icon.remove();
     }
-  }
-}
-
-// This Function is  used to load the User Data with the Key present in LS..
-function loadData() {
-  let key = localStorage.getItem("uuid");
-
-  if (key != null && key != "null" && key != undefined) {
-    var requestOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-
-    fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
-      .then((response) => {
-        if (response.status == 200) {
-          response.text().then((res) => {
-            localStorage.setItem("data", res);
-          });
-        }
-      })
-      // .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
   }
 }
 
