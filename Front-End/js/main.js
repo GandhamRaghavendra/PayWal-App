@@ -13,6 +13,11 @@ function loginCheck() {
   else return true;
 }
 
+// Adding OnClick to wallet_service div..!
+document.querySelector(".wallet_service").addEventListener("click", () => {
+  walletService();
+});
+
 function walletService() {
   if (loginCheck()) {
     window.location.href = "walletService.html";
@@ -21,24 +26,59 @@ function walletService() {
   }
 }
 
+// Adding OnClick to fund_service div..!
+document.querySelector(".fund_service").addEventListener("click", () => {
+  fundService();
+});
+
 function fundService() {
-  loginCheck();
+  if (loginCheck()) {
+    window.location.href = "fund_M_Service.html";
+  } else {
+    if (window.confirm("Login first..")) window.location.href = "login.html";
+  }
 }
+
+// Adding OnClick to acc_service div..!
+document.querySelector(".acc_service").addEventListener("click", () => {
+  accountService();
+});
 
 function accountService() {
   loginCheck();
+  console.log("acc");
 }
+
+
+// Adding OnClick to bill_service div..!
+document.querySelector(".bill_service").addEventListener("click", () => {
+  billService();
+});
 
 function billService() {
   loginCheck();
+  console.log("acc");
 }
+
+
+// Adding OnClick to beneficiary_service div..!
+document.querySelector(".beneficiary_service").addEventListener("click", () => {
+  beneficiaryService();
+});
 
 function beneficiaryService() {
   loginCheck();
+  console.log("acc");
 }
 
+
+// Adding OnClick to transaction_service div..!
+document.querySelector(".transaction_service").addEventListener("click", () => {
+  transactionService();
+});
 function transactionService() {
   loginCheck();
+  console.log("acc");
 }
 
 function loginSucc() {

@@ -1,6 +1,8 @@
 // let domain = "https://paywal-app-production.up.railway.app"; // cloud
 let domain = "http://localhost:8484"; // local
 
+
+
 // Onload Wallet Method will be called
 window.addEventListener("load", () => {
   wallet();
@@ -135,7 +137,7 @@ function UpdateNameAndPass(name, pass) {
     alert("Give Proper Name and Password To update");
     window.location.reload();
   } else {
-    // ** MethodCall for Updating Name And Pass **
+    // ** Method Call for Updating Name And Pass **
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
