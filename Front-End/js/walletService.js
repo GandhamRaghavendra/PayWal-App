@@ -4,30 +4,39 @@ let domain = "http://localhost:8484"; // local
 // import loadData from main.js file..!
 import { loadData } from "./common.js";
 
-// Onload Wallet Method will be called
+// importing navbar form component file..!
+import { nav, navContent } from "../component/nav.js";
+
 window.addEventListener("load", () => {
+
+  // Getting nav to append navbar form nav.js
+  document.querySelector("nav").innerHTML = nav();
+
+  // This method for loding content in navbar..
+  navContent(); 
+
+  // Onload Wallet Method will be called
   wallet();
 });
+
+// Wallet Method
+function wallet() {
+  
+  // This is for edit button..!
+  localStorage.setItem("buttonValue", 0);
+  let key = localStorage.getItem("uuid");
+  let obj = JSON.parse(localStorage.getItem("data"));
+
+  document.querySelector(".welcomeTag").innerText = `Welcome ${obj.customer.name}`;
+  
+  document.querySelector(".name").innerText = `${obj.customer.name}`;
+  document.querySelector(".pass").innerText = `*********`;
+}
 
 //OnClick on Edit Button EditMethod Called
 document.querySelector(".edit").addEventListener("click", () => {
   editMethod();
 });
-
-// Wallet Method
-function wallet() {
-  localStorage.setItem("buttonValue", 0);
-  let key = localStorage.getItem("uuid");
-  let obj = JSON.parse(localStorage.getItem("data"));
-
-  console.log(obj);
-
-  document.querySelector(
-    ".welcomeTag"
-  ).innerText = `Welcome ${obj.customer.name}..`;
-  document.querySelector(".name").innerText = `${obj.customer.name}`;
-  document.querySelector(".pass").innerText = `*********`;
-}
 
 // EditMethod
 function editMethod() {
@@ -82,29 +91,6 @@ function editMethod() {
     document.querySelector(".update-wallet-div").appendChild(cancelBtn);
   }
 }
-
-// This Function is  used to load the User Data with the Key present in LS..
-// function loadData() {
-//   let key = localStorage.getItem("uuid");
-
-//   if (key != null && key != "null" && key != undefined) {
-//     let requestOptions = {
-//       method: "GET",
-//       redirect: "follow",
-//     };
-
-//     fetch(`${domain}/pws/wallet/viewbal?key=${key}`, requestOptions)
-//       .then((response) => {
-//         if (response.status == 200) {
-//           response.text().then((res) => {
-//             localStorage.setItem("data", res);
-//           });
-//         }
-//       })
-//       // .then((result) => console.log(result))
-//       .catch((error) => console.log("error", error));
-//   }
-// }
 
 // Cancel Method
 function cancel() {
