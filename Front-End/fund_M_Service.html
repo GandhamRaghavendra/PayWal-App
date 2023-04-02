@@ -29,18 +29,44 @@
         font-size: larger;
         font-weight: 1000;
       }
-      .rotate{
+      .rotate {
         transform: rotate(180deg);
         transition: 0.5s;
       }
-      .dropdown_selfdeposit{
+      .dropdown_selfdeposit,.dropdown_transfer{
         width: 30%;
-        height: 100px;
+        height: 200px;
         margin: auto;
         margin-top: 5px;
         padding: 10px;
         border-radius: 10px;
         background-color: white;
+        visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+      }
+      input {
+        height: 30px;
+        width: 80%;
+      }
+      .button_div {
+        width: 80%;
+        height: 50px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      button {
+        border: none;
+        display: block;
+        padding: 10px;
+        font-weight: bolder;
+        background-color: green;
+      }
+      .cancel {
+        background-color: red;
       }
     </style>
   </head>
@@ -52,11 +78,28 @@
       PWS (Funds transfer/ Self deposit Service)
     </h1>
     <div class="selfdeposit_div fund_service_div">
-        <p class="service_name">Self Deposit Area</p>
-        <i class="fa-solid fa-angle-down"></i>
+      <p class="service_name">Self Deposit Area</p>
+      <i class="fa-solid fa-angle-down deposit"></i>
     </div>
     <div class="dropdown_selfdeposit">
-
+      <input type="number" id="amount" placeholder="Amount" />
+      <input type="number" id="accountnum" placeholder="Acc Number" />
+      <div class="button_div">
+        <button class="add">Add</button>
+        <button class="cancel">Cancel</button>
+      </div>
+    </div>
+    <div class="transfer_div fund_service_div">
+      <p class="service_name">Fund Transfer Area</p>
+      <i class="fa-solid fa-angle-down transfer"></i>
+    </div>
+    <div class="dropdown_transfer">
+      <input type="number" id="amount" placeholder="Amount" />
+      <input type="tel" id="mobile" placeholder="User Mobile Number" />
+      <div class="button_div">
+        <button class="add">Add</button>
+        <button class="cancel">Cancel</button>
+      </div>
     </div>
   </body>
 </html>
@@ -69,20 +112,39 @@
     navContent();
   });
 
-  document.querySelector(".selfdeposit_div").addEventListener('click',()=>{
+  document.querySelector(".selfdeposit_div").addEventListener("click", () => {
     deposit();
   });
-  
-  function deposit(){
-    let icon = document.querySelector(".fa-angle-down");
-    if(icon.classList.contains('rotate')){
-      document.querySelector(".fa-angle-down").classList.remove('rotate');
-    }
-    else{
-      document.querySelector(".fa-angle-down").classList.add('rotate');
+
+  document.querySelector(".transfer_div").addEventListener("click", () => {
+    transfer();
+  });
+
+  document.querySelector(".cancel").addEventListener("click", () => {
+    deposit();
+  });
+
+  function deposit() {
+    let icon = document.querySelector(".deposit");
+    let dropdown = document.querySelector(".dropdown_selfdeposit");
+    if (icon.classList.contains("rotate")) {
+      icon.classList.remove("rotate");
+      dropdown.style.visibility = "hidden";
+    } else {
+      icon.classList.add("rotate");
+      dropdown.style.visibility = "visible";
     }
   }
 
-
-
+  function transfer() {
+    let icon = document.querySelector(".transfer");
+    let dropdown = document.querySelector(".dropdown_transfer");
+    if (icon.classList.contains("rotate")) {
+      icon.classList.remove("rotate");
+      dropdown.style.visibility = "hidden";
+    } else {
+      icon.classList.add("rotate");
+      dropdown.style.visibility = "visible";
+    }
+  }
 </script>
