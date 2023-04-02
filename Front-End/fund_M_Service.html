@@ -10,6 +10,39 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="./css/main.css" />
+    <style>
+      .fund_service_div {
+        /* border: 1px solid black; */
+        width: 30%;
+        height: 50px;
+        margin: auto;
+        margin-top: 20px;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 10px;
+        background-color: white;
+      }
+      .service_name {
+        color: black;
+        font-size: larger;
+        font-weight: 1000;
+      }
+      .rotate{
+        transform: rotate(180deg);
+        transition: 0.5s;
+      }
+      .dropdown_selfdeposit{
+        width: 30%;
+        height: 100px;
+        margin: auto;
+        margin-top: 5px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: white;
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -18,6 +51,13 @@
     <h1 class="center white mtop-20">
       PWS (Funds transfer/ Self deposit Service)
     </h1>
+    <div class="selfdeposit_div fund_service_div">
+        <p class="service_name">Self Deposit Area</p>
+        <i class="fa-solid fa-angle-down"></i>
+    </div>
+    <div class="dropdown_selfdeposit">
+
+    </div>
   </body>
 </html>
 
@@ -26,7 +66,23 @@
 
   window.addEventListener("load", () => {
     document.querySelector("nav").innerHTML = nav();
-
     navContent();
   });
+
+  document.querySelector(".selfdeposit_div").addEventListener('click',()=>{
+    deposit();
+  });
+  
+  function deposit(){
+    let icon = document.querySelector(".fa-angle-down");
+    if(icon.classList.contains('rotate')){
+      document.querySelector(".fa-angle-down").classList.remove('rotate');
+    }
+    else{
+      document.querySelector(".fa-angle-down").classList.add('rotate');
+    }
+  }
+
+
+
 </script>
