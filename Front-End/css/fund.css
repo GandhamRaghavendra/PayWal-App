@@ -1,0 +1,59 @@
+.fund_service_div {
+  /* border: 1px solid black; */
+  width: 30%;
+  height: 50px;
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+}
+.service_name {
+  color: black;
+  font-size: larger;
+  font-weight: 1000;
+}
+.rotate {
+  transform: rotate(180deg);
+  transition: 0.5s;
+}
+.dropdown_selfdeposit,
+.dropdown_transfer {
+  width: 30%;
+  height: 200px;
+  margin: auto;
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: white;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+input {
+  height: 30px;
+  width: 80%;
+}
+.button_div {
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+button {
+  border: none;
+  display: block;
+  padding: 10px;
+  font-weight: bolder;
+  background-color: green;
+}
+.deposit_cancel,
+.transfer_cancel {
+  background-color: red;
+}
