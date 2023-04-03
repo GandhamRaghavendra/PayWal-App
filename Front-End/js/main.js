@@ -48,8 +48,11 @@ document.querySelector(".acc_service").addEventListener("click", () => {
 });
 
 function accountService() {
-  loginCheck();
-  console.log("acc");
+  if (loginCheck()) {
+    window.location.href = "accService.html";
+  } else {
+    if (window.confirm("Login first..")) window.location.href = "login.html";
+  }
 }
 
 // Adding OnClick to bill_service div..!
