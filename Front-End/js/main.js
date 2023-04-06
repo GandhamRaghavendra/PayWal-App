@@ -74,8 +74,11 @@ document.querySelector(".beneficiary_service").addEventListener("click", () => {
 });
 
 function beneficiaryService() {
-  loginCheck();
-  console.log("acc");
+if (loginCheck()) {
+  window.location.href = "beneficiaryService.html";
+} else {
+  if (window.confirm("Login first..")) window.location.href = "login.html";
+}
 }
 
 // Adding OnClick to transaction_service div..!

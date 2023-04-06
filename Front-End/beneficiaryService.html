@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bills Management</title>
+    <title>Beneficiary Management</title>
     <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="stylesheet"
@@ -52,7 +52,7 @@
       .dropdown.active .dropdown-arrow {
         transform: translateY(2px) rotate(180deg);
       }
-      .bills {
+      .bank-account {
         border: 1px solid black;
         height: 20px;
         padding: 20px;
@@ -60,6 +60,14 @@
         align-items: center;
         justify-content: space-around;
       }
+      .delete {
+        border: 0px;
+        padding: 5px;
+        color: black;
+        font-weight: bolder;
+        background-color: red;
+      }
+
       /* 2nd Feature of accService */
       .addAcc_div {
         border: 1px solid black;
@@ -128,10 +136,10 @@
   </head>
   <body>
     <nav></nav>
-    <h1 class="center white mtop-20">PWS (Bills Management Service)</h1>
+    <h1 class="center white mtop-20">PWS ( Beneficiary Management Service)</h1>
     <div class="dropdown">
       <a href="#" class="dropdown-text"
-        >View All Bills<span class="dropdown-arrow"></span
+        >View All Beneficiary<span class="dropdown-arrow"></span
       ></a>
       <div class="dropdown-content">
         <!-- append bank accounts here dynamically -->
@@ -139,34 +147,26 @@
     </div>
 
     <div class="addAcc_div">
-      <p>Add new Bill</p>
+      <p>Add new Beneficiary</p>
 
       <div class="container">
-        <label class="label" for="billType">BillType:</label>
+        <label class="label" for="BeneficiaryName">BeneficiaryName:</label>
         <input
           class="input-field"
           type="text"
-          id="billType"
-          name="billType"
+          id="BeneficiaryName"
+          name="BeneficiaryName"
           required
         />
-        <label class="label" for="amount">Amount:</label>
+        <label class="label" for="BeneficiaryMobile">BeneficiaryMobile:</label>
         <input
           class="input-field"
-          type="text"
-          id="amount"
-          name="amount"
+          type="tel"
+          id="BeneficiaryMobile"
+          name="BeneficiaryMobile"
           required
         />
-        <label class="label" for="paymentDate">PaymentDate:</label>
-        <input
-          class="input-field"
-          type="date"
-          id="paymentDate"
-          name="paymentDate"
-          required
-        />
-        <button class="button">Submit</button>
+        <button class="button">Add Beneficiary</button>
       </div>
     </div>
   </body>
@@ -179,10 +179,10 @@
     navContent();
 
     let obj = JSON.parse(localStorage.getItem("data"));
-    let billsArr = obj.billPayments;
+    let beneficiaryList = obj.beneficiaryList;
 
-    console.log(billsArr[0]);
-    appendAcc(billsArr);
+    console.log(beneficiaryList[0]);
+    appendAcc(beneficiaryList);
   });
 
   let dropdown = document.querySelector(".dropdown");
@@ -199,21 +199,40 @@
     }
   });
 
-  // this will append bankAccounts to dropdown-content div..!
+  // this will append beneficiaryList to dropdown-content div..!
   function appendAcc(data) {
     let cont = document.querySelector(".dropdown-content");
     cont.innerHTML = "";
     data.forEach((el, ind) => {
       let newDiv = document.createElement("div");
       // add class to new div
-      newDiv.classList.add("bills");
+      newDiv.classList.add("bank-account");
       newDiv.innerHTML = `
-          <p>BillId: <b>${el.billId}</b></p>
-          <p>BillType: <b>${el.billType}</b></p>
-          <p>Amount: <b>${el.amount}</b></p>
-          <p>PaymentDate: <b>${el.paymentDate}</b></p>
+          <p><b>${ind + 1}</b></p>
+          <p>Name: <b>${el.name}</b></p>
+          <p>Mobile: <b>${el.mobile}</b></p>
         `;
+      // creating button to append..!
+      let btn = document.createElement("button");
+      btn.innerHTML = "Delete";
+
+      // Adding class to button..!
+      btn.setAttribute("class", "delete");
+
+      // Adding onclick to button..!
+      btn.onclick = () => {
+        deleteAcc(ind);
+      };
+
+      // appending button to all account div..!
+      newDiv.append(btn);
+
       cont.append(newDiv);
     });
+  }
+
+  // this will delete acc from wallet...!
+  function deleteAcc(i) {
+    console.log(i);
   }
 </script>
