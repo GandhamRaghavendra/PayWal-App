@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bills Management</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .dropdown {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 50%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        margin-top: 20px;
+        background-color: white;
+      }
+      .dropdown-text {
+        text-decoration: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: larger;
+        font-weight: bolder;
+        color: black;
+      }
+      .dropdown-content {
+        display: none;
+        border: 1px solid black;
+        width: 100%;
+        height: 200px;
+        margin-top: 10px;
+      }
+      .dropdown-arrow {
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid #333;
+        display: inline-block;
+        transform: translateY(2px);
+        transition: transform 0.5s ease;
+      }
+      .dropdown.active .dropdown-arrow {
+        transform: translateY(2px) rotate(180deg);
+      }
+      .bank-account {
+        border: 1px solid black;
+        height: 20px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .delete {
+        border: 0px;
+        padding: 5px;
+        color: black;
+        font-weight: bolder;
+        background-color: red;
+      }
+
+      /* 2nd Feature of accService */
+      .addAcc_div {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 30%;
+        margin: auto;
+        background-color: white;
+        margin-top: 20px;
+        padding: 20px;
+        text-align: center;
+      }
+      .addAcc_div > p {
+        font-size: larger;
+        font-weight: bolder;
+        color: black;
+      }
+
+      .input-field {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      .button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .button:hover {
+        background-color: #3e8e41;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav></nav>
+    <h1 class="center white mtop-20">PWS (Bills Management Service)</h1>
+    <div class="dropdown">
+      <a href="#" class="dropdown-text"
+        >View All Bills<span class="dropdown-arrow"></span
+      ></a>
+      <div class="dropdown-content">
+        <!-- append bank accounts here dynamically -->
+      </div>
+    </div>
+
+    <div class="addAcc_div">
+      <p>Add new Bill</p>
+
+      <div class="container">
+        <label class="label" for="accountNo">Account Number:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="accountNo"
+          name="accountNo"
+          required
+        />
+        <label class="label" for="bankName">Bank Name:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="bankName"
+          name="bankName"
+          required
+        />
+        <label class="label" for="ifscCode">IFSC Code:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="ifscCode"
+          name="ifscCode"
+          required
+        />
+        <label class="label" for="balance">Balance:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="balance"
+          name="balance"
+          required
+        />
+        <button class="button">Submit</button>
+      </div>
+    </div>
+  </body>
+</html>
+<script type="module">
+  import { nav, navContent } from "./component/nav.js";
+
+  window.addEventListener("load", () => {
+    document.querySelector("nav").innerHTML = nav();
+    navContent();
+
+    let obj = JSON.parse(localStorage.getItem("data"));
+    let billsArr = obj.billPayments;
+
+    console.log(billsArr[0]);
+    appendAcc(billsArr);
+  });
+
+  let dropdown = document.querySelector(".dropdown");
+
+  dropdown.addEventListener("click", function () {
+    this.classList.toggle("active");
+
+    let dropdownContent = this.querySelector(".dropdown-content");
+
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+
+  // this will append bankAccounts to dropdown-content div..!
+  function appendAcc(data) {
+    let cont = document.querySelector(".dropdown-content");
+    cont.innerHTML = "";
+    data.forEach((el, ind) => {
+      let newDiv = document.createElement("div");
+      // add class to new div
+      newDiv.classList.add("bank-account");
+      newDiv.innerHTML = `
+          <p>BillId: <b>${el.billId}</b></p>
+          <p>BillType: <b>${el.billType}</b></p>
+          <p>Amount: <b>${el.amount}</b></p>
+          <p>PaymentDate: <b>${el.paymentDate}</b></p>
+        `;
+      cont.append(newDiv);
+    });
+  }
+</script>

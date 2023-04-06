@@ -61,8 +61,11 @@ document.querySelector(".bill_service").addEventListener("click", () => {
 });
 
 function billService() {
-  loginCheck();
-  console.log("acc");
+if (loginCheck()) {
+  window.location.href = "billService.html";
+} else {
+  if (window.confirm("Login first..")) window.location.href = "login.html";
+}
 }
 
 // Adding OnClick to beneficiary_service div..!
