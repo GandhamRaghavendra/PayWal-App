@@ -52,7 +52,7 @@
       .dropdown.active .dropdown-arrow {
         transform: translateY(2px) rotate(180deg);
       }
-      .bank-account{
+      .bank-account {
         border: 1px solid black;
         height: 20px;
         padding: 20px;
@@ -60,8 +60,77 @@
         align-items: center;
         justify-content: space-around;
       }
-      .delete{
+      .delete {
+        border: 0px;
+        padding: 5px;
+        color: black;
+        font-weight: bolder;
         background-color: red;
+      }
+
+      /* 2nd Feature of accService */
+      .addAcc_div {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 30%;
+        margin: auto;
+        background-color: white;
+        margin-top: 20px;
+        padding: 20px;
+        text-align: center;
+      }
+      .addAcc_div > p {
+        font-size: larger;
+        font-weight: bolder;
+        color: black;
+      }
+
+      .input-field {
+        display: block;
+        margin: 10px 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      .button {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .button:hover {
+        background-color: #3e8e41;
+      }
+
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: transparent;
+        border-radius: 5px;
       }
     </style>
   </head>
@@ -74,6 +143,46 @@
       ></a>
       <div class="dropdown-content">
         <!-- append bank accounts here dynamically -->
+      </div>
+    </div>
+
+    <div class="addAcc_div">
+      <p>Add new account to wallet</p>
+
+      <div class="container">
+        <label class="label" for="accountNo">Account Number:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="accountNo"
+          name="accountNo"
+          required
+        />
+        <label class="label" for="bankName">Bank Name:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="bankName"
+          name="bankName"
+          required
+        />
+        <label class="label" for="ifscCode">IFSC Code:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="ifscCode"
+          name="ifscCode"
+          required
+        />
+        <label class="label" for="balance">Balance:</label>
+        <input
+          class="input-field"
+          type="text"
+          id="balance"
+          name="balance"
+          required
+        />
+        <button class="button">Submit</button>
       </div>
     </div>
   </body>
@@ -115,23 +224,33 @@
       // add class to new div
       newDiv.classList.add("bank-account");
       newDiv.innerHTML = `
+          <p><b>${ind + 1}</b></p>
           <p>Account No: <b>${el.accountNo}</b></p>
           <p>Balance: <b>${el.balance}</b></p>
           <p>Bank Name: <b>${el.bankName}</b></p>
           <p>IFSC Code: <b>${el.ifscCode}</b></p>
         `;
-       let btn = document.createElement('button');
-       btn.innerHTML = 'Delete';
-       btn.setAttribute('class','delete');
-       btn.onclick = ()=>{
-         deleteAcc();
-       }
-       newDiv.append(btn);
+      // creating button to append..!
+      let btn = document.createElement("button");
+      btn.innerHTML = "Delete";
+
+      // Adding class to button..!
+      btn.setAttribute("class", "delete");
+
+      // Adding onclick to button..!
+      btn.onclick = () => {
+        deleteAcc(ind);
+      };
+
+      // appending button to all account div..!
+      newDiv.append(btn);
+
       cont.append(newDiv);
     });
-
   }
-  function deleteAcc(){
-    console.log("delete")
+
+  // this will delete acc from wallet...!
+  function deleteAcc(i) {
+    console.log(i);
   }
 </script>
