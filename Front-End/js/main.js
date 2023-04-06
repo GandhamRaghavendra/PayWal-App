@@ -86,8 +86,11 @@ document.querySelector(".transaction_service").addEventListener("click", () => {
   transactionService();
 });
 function transactionService() {
-  loginCheck();
-  console.log("acc");
+if (loginCheck()) {
+  window.location.href = "transactionService.html";
+} else {
+  if (window.confirm("Login first..")) window.location.href = "login.html";
+}
 }
 
 function loginSucc() {

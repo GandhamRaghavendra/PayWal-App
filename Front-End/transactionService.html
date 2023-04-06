@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bills Management</title>
+    <title>transaction Details</title>
     <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="stylesheet"
@@ -60,113 +60,17 @@
         align-items: center;
         justify-content: space-around;
       }
-      /* 2nd Feature of accService */
-      .addAcc_div {
-        border: 1px solid black;
-        border-radius: 10px;
-        width: 30%;
-        margin: auto;
-        background-color: white;
-        margin-top: 20px;
-        padding: 20px;
-        text-align: center;
-      }
-      .addAcc_div > p {
-        font-size: larger;
-        font-weight: bolder;
-        color: black;
-      }
-
-      .input-field {
-        display: block;
-        margin: 10px 0;
-        width: 100%;
-        box-sizing: border-box;
-      }
-
-      .label {
-        display: block;
-        font-size: 14px;
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .input {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-        box-sizing: border-box;
-      }
-
-      .button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-      }
-
-      .button:hover {
-        background-color: #3e8e41;
-      }
-
-      .container {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: transparent;
-        border-radius: 5px;
-      }
     </style>
   </head>
   <body>
     <nav></nav>
-    <h1 class="center white mtop-20">PWS (Bills Management Service)</h1>
+    <h1 class="center white mtop-20">PWS (Transaction Service)</h1>
     <div class="dropdown">
       <a href="#" class="dropdown-text"
-        >View All Bills<span class="dropdown-arrow"></span
+        >View All transaction<span class="dropdown-arrow"></span
       ></a>
       <div class="dropdown-content">
         <!-- append bank accounts here dynamically -->
-      </div>
-    </div>
-
-    <div class="addAcc_div">
-      <p>Add new Bill</p>
-
-      <div class="container">
-        <label class="label" for="billType">BillType:</label>
-        <input
-          class="input-field"
-          type="text"
-          id="billType"
-          name="billType"
-          required
-        />
-        <label class="label" for="amount">Amount:</label>
-        <input
-          class="input-field"
-          type="text"
-          id="amount"
-          name="amount"
-          required
-        />
-        <label class="label" for="paymentDate">PaymentDate:</label>
-        <input
-          class="input-field"
-          type="date"
-          id="paymentDate"
-          name="paymentDate"
-          required
-        />
-        <button class="button">Add Bill</button>
       </div>
     </div>
   </body>
@@ -179,10 +83,10 @@
     navContent();
 
     let obj = JSON.parse(localStorage.getItem("data"));
-    let billsArr = obj.billPayments;
+    let transactionsArr = obj.transactions;
 
-    console.log(billsArr[0]);
-    appendAcc(billsArr);
+    console.log(transactionsArr[0]);
+    appendAcc(transactionsArr);
   });
 
   let dropdown = document.querySelector(".dropdown");
@@ -208,10 +112,10 @@
       // add class to new div
       newDiv.classList.add("bills");
       newDiv.innerHTML = `
-          <p>BillId: <b>${el.billId}</b></p>
-          <p>BillType: <b>${el.billType}</b></p>
+          <p>ID: <b>${el.transactionId}</b></p>
+          <p>Desc: <b>${el.description}</b></p>
           <p>Amount: <b>${el.amount}</b></p>
-          <p>PaymentDate: <b>${el.paymentDate}</b></p>
+          <p>Date: <b>${el.transactionDate}</b></p>
         `;
       cont.append(newDiv);
     });
