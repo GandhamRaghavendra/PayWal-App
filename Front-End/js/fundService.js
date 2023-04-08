@@ -1,3 +1,8 @@
+let domain = "http://localhost:8484"; // local
+
+// import loadData from main.js file..!
+import { loadData } from "./common.js";
+
 import { nav, navContent } from "../component/nav.js";
 
 window.addEventListener("load", () => {
@@ -45,29 +50,111 @@ function transfer() {
   }
 }
 
+// ****************************************************************************
 // onClicking add button we are calling deposit service..!
 document.querySelector(".add").addEventListener("click", () => {
   let amt = document.querySelector("#dipositAmount").value;
   let accno = document.querySelector("#accountnum").value;
+  let key = localStorage.getItem("uuid");
 
   if (amt > 0 && accno > 9999) {
-    console.log(amt, accno);
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      accountNo: `${accno}`,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(
+      `${domain}/pws/wallet/deposit?amount=${amt}&key=${key}`,
+      requestOptions
+    ).then((response) => {
+      if (response.status == 200) {
+        alert("Fund Added Successfully..");
+
+        // This will update our LS data..!
+        loadData();
+
+        depositFieldClean();
+      } else {
+        response.text().then((res) => {
+          let obj = JSON.parse(res);
+
+          alert(`${obj.message}`);
+
+          depositFieldClean();
+        });
+      }
+    });
+    // .then((result) => console.log(result))
+    // .catch((error) => console.log("error", error));
   } else {
     alert("Give Proper values");
-    document.querySelector("#dipositAmount").value = "";
-    document.querySelector("#accountnum").value = "";
+    depositFieldClean();
   }
 });
 
+// This method is called when we need to clean the deposit Field..!!
+function depositFieldClean() {
+  document.querySelector("#dipositAmount").value = "";
+  document.querySelector("#accountnum").value = "";
+}
+
+// ****************************************************************************
+
+// ****************************************************************************
 //onClicking send button we are calling Transfer fund service..!
 document.querySelector(".send").addEventListener("click", () => {
   let amt = document.querySelector("#transferAmount").value;
   let mob = document.querySelector("#Receivermobile").value;
+  let key = localStorage.getItem("uuid");
 
-  if (amt > 0 && mob > 9999999999) {
+  if (amt > 0 && mob > 999999999) {
+    var requestOptions = {
+      method: "POST",
+      redirect: "follow",
+    };
+
+    fetch(
+      `${domain}/pws/wallet/transfer?tmob=${mob}&amount=${amt}&key=${key}`,
+      requestOptions
+    ).then((response) => {
+      if (response.status == 200) {
+        alert("Fund Transfered successfully");
+
+        // This will update our LS data..!
+        loadData();
+
+        transferFieldClean();
+      } else {
+        response.text().then((res) => {
+          let obj = JSON.parse(res);
+
+          alert(`${obj.message}`);
+
+          transferFieldClean();
+        });
+      }
+    });
+    // .then((result) => console.log(result))
+    // .catch((error) => console.log("error", error));
   } else {
     alert("Give Proper values");
-    document.querySelector("#transferAmount").value = "";
-    document.querySelector("#Receivermobile").value = "";
+    transferFieldClean();
   }
 });
+
+// This method is called when we need to clean the transfer Field..!!
+function transferFieldClean() {
+  document.querySelector("#transferAmount").value = "";
+  document.querySelector("#Receivermobile").value = "";
+}
+
+// ****************************************************************************
