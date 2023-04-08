@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pws.exceptions.BankAccountException;
 import com.pws.exceptions.CustomerException;
 import com.pws.exceptions.InsufficientFundException;
 import com.pws.exceptions.InvalidCredentialsException;
@@ -137,7 +138,7 @@ public class WalletServiceImpl implements WalletService {
 
 	@Override
 	public Wallet addMoney(String key, double amount, BankAccount acc)
-			throws WalletException, InvalidCredentialsException {
+			throws WalletException, InvalidCredentialsException, BankAccountException {
 
 		CurrentUserSession currSession = session.findByKey(key);
 
@@ -151,6 +152,8 @@ public class WalletServiceImpl implements WalletService {
 		Optional<BankAccount> account = bRepo.findById(acc.getAccountNo());
 		
 		if(!account.isPresent()||account.get().getWallet().getWalletId()!=wall.get().getWalletId()) throw new WalletException("Account Not Found");
+		
+		if(account.get().getBalance() < amount) throw new BankAccountException("Insufficient Funds");
 		
 		Transaction tran = new Transaction();
 		

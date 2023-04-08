@@ -31,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
 
 		Optional<CurrentUserSession> sess = sRepo.findById(loginDTO.getMobile());
 
-		if (sess.isPresent())
+		if (sess.isPresent() && cus.get().getPassword().equals(loginDTO.getPassword()))
 			throw new LoginException("User Already LogedIn With This Number");
 
 		if (cus.get().getPassword().equals(loginDTO.getPassword())) {

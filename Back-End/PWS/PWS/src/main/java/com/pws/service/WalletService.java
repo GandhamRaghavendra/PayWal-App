@@ -1,5 +1,6 @@
 package com.pws.service;
 
+import com.pws.exceptions.BankAccountException;
 import com.pws.exceptions.CustomerException;
 import com.pws.exceptions.InsufficientFundException;
 import com.pws.exceptions.InvalidCredentialsException;
@@ -16,5 +17,5 @@ public interface WalletService {
 
 	public Customer updateAccount(Customer customer, String key) throws CustomerException, InvalidCredentialsException;
 
-	public Wallet addMoney(String key, double amount, BankAccount acc) throws WalletException, InvalidCredentialsException;
+	public Wallet addMoney(String key, double amount, BankAccount acc) throws WalletException, InvalidCredentialsException, BankAccountException;
 }

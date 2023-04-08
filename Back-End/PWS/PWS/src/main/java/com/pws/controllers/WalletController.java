@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pws.exceptions.BankAccountException;
 import com.pws.exceptions.CustomerException;
 import com.pws.exceptions.InsufficientFundException;
 import com.pws.exceptions.InvalidCredentialsException;
@@ -51,7 +52,7 @@ public class WalletController {
 		
 	@PostMapping("/deposit")
 	public ResponseEntity<Wallet> AddMoneyHandler(@RequestParam double amount, @RequestParam String key,
-			@RequestBody BankAccount acc) throws CustomerException, WalletException, InvalidCredentialsException {
+			@RequestBody BankAccount acc) throws CustomerException, WalletException, InvalidCredentialsException, BankAccountException {
 		Wallet wallet = wService.addMoney(key, amount, acc);
 		return new ResponseEntity<Wallet>(wallet, HttpStatus.OK);
 	}
