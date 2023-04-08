@@ -44,3 +44,30 @@ function transfer() {
     dropdown.style.visibility = "visible";
   }
 }
+
+// onClicking add button we are calling deposit service..!
+document.querySelector(".add").addEventListener("click", () => {
+  let amt = document.querySelector("#dipositAmount").value;
+  let accno = document.querySelector("#accountnum").value;
+
+  if (amt > 0 && accno > 9999) {
+    console.log(amt, accno);
+  } else {
+    alert("Give Proper values");
+    document.querySelector("#dipositAmount").value = "";
+    document.querySelector("#accountnum").value = "";
+  }
+});
+
+//onClicking send button we are calling Transfer fund service..!
+document.querySelector(".send").addEventListener("click", () => {
+  let amt = document.querySelector("#transferAmount").value;
+  let mob = document.querySelector("#Receivermobile").value;
+
+  if (amt > 0 && mob > 9999999999) {
+  } else {
+    alert("Give Proper values");
+    document.querySelector("#transferAmount").value = "";
+    document.querySelector("#Receivermobile").value = "";
+  }
+});
