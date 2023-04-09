@@ -159,13 +159,16 @@
           required
         />
         <label class="label" for="bankName">Bank Name:</label>
-        <input
-          class="input-field"
-          type="text"
-          id="bankName"
-          name="bankName"
-          required
-        />
+        <select class="input-field" id="bankName" name="bankName">
+          <option value="">Select a Bank</option>
+          <option value="HDFC">HDFC Bank</option>
+          <option value="SBI">State Bank of India</option>
+          <option value="ICICI">ICICI Bank</option>
+          <option value="Axis">Axis Bank</option>
+          <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+          <option value="Punjab National Bank">Punjab National Bank</option>
+          <option value="Bank of Baroda">Bank of Baroda</option>
+        </select>
         <label class="label" for="ifscCode">IFSC Code:</label>
         <input
           class="input-field"
@@ -182,75 +185,9 @@
           name="balance"
           required
         />
-        <button class="button">Add Account</button>
+        <button class="button addAccount">Add Account</button>
       </div>
     </div>
   </body>
 </html>
-<script type="module">
-  import { nav, navContent } from "./component/nav.js";
-
-  window.addEventListener("load", () => {
-    document.querySelector("nav").innerHTML = nav();
-    navContent();
-
-    let obj = JSON.parse(localStorage.getItem("data"));
-    let bankAccountsArr = obj.bankAccounts;
-
-    console.log(bankAccountsArr[0]);
-    appendAcc(bankAccountsArr);
-  });
-
-  let dropdown = document.querySelector(".dropdown");
-
-  dropdown.addEventListener("click", function () {
-    this.classList.toggle("active");
-
-    let dropdownContent = this.querySelector(".dropdown-content");
-
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownContent.style.display = "block";
-    }
-  });
-
-  // this will append bankAccounts to dropdown-content div..!
-  function appendAcc(data) {
-    let cont = document.querySelector(".dropdown-content");
-    cont.innerHTML = "";
-    data.forEach((el, ind) => {
-      let newDiv = document.createElement("div");
-      // add class to new div
-      newDiv.classList.add("bank-account");
-      newDiv.innerHTML = `
-          <p><b>${ind + 1}</b></p>
-          <p>Account No: <b>${el.accountNo}</b></p>
-          <p>Balance: <b>${el.balance}</b></p>
-          <p>Bank Name: <b>${el.bankName}</b></p>
-          <p>IFSC Code: <b>${el.ifscCode}</b></p>
-        `;
-      // creating button to append..!
-      let btn = document.createElement("button");
-      btn.innerHTML = "Delete";
-
-      // Adding class to button..!
-      btn.setAttribute("class", "delete");
-
-      // Adding onclick to button..!
-      btn.onclick = () => {
-        deleteAcc(ind);
-      };
-
-      // appending button to all account div..!
-      newDiv.append(btn);
-
-      cont.append(newDiv);
-    });
-  }
-
-  // this will delete acc from wallet...!
-  function deleteAcc(i) {
-    console.log(i);
-  }
-</script>
+<script src="./js/accountService.js" type="module"></script>
