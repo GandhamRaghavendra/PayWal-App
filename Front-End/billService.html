@@ -36,7 +36,7 @@
         display: none;
         border: 1px solid black;
         width: 100%;
-        height: 200px;
+        /* height: 200px; */
         margin-top: 10px;
       }
       .dropdown-arrow {
@@ -143,13 +143,17 @@
 
       <div class="container">
         <label class="label" for="billType">BillType:</label>
-        <input
-          class="input-field"
-          type="text"
-          id="billType"
-          name="billType"
-          required
-        />
+        <select id="billType" class="input-field">
+          <option value="">Select a bill type</option>
+          <option value="electricity">Electricity Bill</option>
+          <option value="water">Water Bill</option>
+          <option value="gas">Gas Bill</option>
+          <option value="internet">Internet Bill</option>
+          <option value="phone">Phone Bill</option>
+          <option value="creditCard">Credit Card Payment</option>
+          <option value="shoping">Shoping Payment</option>
+        </select>
+
         <label class="label" for="amount">Amount:</label>
         <input
           class="input-field"
@@ -166,54 +170,9 @@
           name="paymentDate"
           required
         />
-        <button class="button">Add Bill</button>
+        <button class="button addBill">Add Bill</button>
       </div>
     </div>
   </body>
 </html>
-<script type="module">
-  import { nav, navContent } from "./component/nav.js";
-
-  window.addEventListener("load", () => {
-    document.querySelector("nav").innerHTML = nav();
-    navContent();
-
-    let obj = JSON.parse(localStorage.getItem("data"));
-    let billsArr = obj.billPayments;
-
-    console.log(billsArr[0]);
-    appendAcc(billsArr);
-  });
-
-  let dropdown = document.querySelector(".dropdown");
-
-  dropdown.addEventListener("click", function () {
-    this.classList.toggle("active");
-
-    let dropdownContent = this.querySelector(".dropdown-content");
-
-    if (dropdownContent.style.display === "block") {
-      dropdownContent.style.display = "none";
-    } else {
-      dropdownContent.style.display = "block";
-    }
-  });
-
-  // this will append bankAccounts to dropdown-content div..!
-  function appendAcc(data) {
-    let cont = document.querySelector(".dropdown-content");
-    cont.innerHTML = "";
-    data.forEach((el, ind) => {
-      let newDiv = document.createElement("div");
-      // add class to new div
-      newDiv.classList.add("bills");
-      newDiv.innerHTML = `
-          <p>BillId: <b>${el.billId}</b></p>
-          <p>BillType: <b>${el.billType}</b></p>
-          <p>Amount: <b>${el.amount}</b></p>
-          <p>PaymentDate: <b>${el.paymentDate}</b></p>
-        `;
-      cont.append(newDiv);
-    });
-  }
-</script>
+<script src="./js/billService.js" type="module"></script>
