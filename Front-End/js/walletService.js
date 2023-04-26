@@ -1,8 +1,6 @@
-// let domain = "https://paywal-app-production.up.railway.app"; // cloud
-let domain = "http://localhost:8484"; // local
 
 // import loadData from main.js file..!
-import { loadData } from "./common.js";
+import { loadData,domain } from "./common.js";
 
 // importing navbar form component file..!
 import { nav, navContent } from "../component/nav.js";

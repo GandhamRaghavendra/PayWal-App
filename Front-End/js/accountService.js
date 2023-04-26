@@ -1,9 +1,10 @@
+
+// importing nav details from component/nav.js.
 import { nav, navContent } from "../component/nav.js";
 
-// import loadData from main.js file..!
-import { loadData } from "./common.js";
+// import loadData,domain from common.js file..!
+import { loadData,domain } from "./common.js";
 
-let domain = "http://localhost:8484"; // local
 
 window.addEventListener("load", () => {
   document.querySelector("nav").innerHTML = nav();

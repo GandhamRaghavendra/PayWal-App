@@ -24,4 +24,4 @@ function loadData() {
   }
 }
 
-export { loadData };
+export { loadData, domain };

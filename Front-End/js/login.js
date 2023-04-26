@@ -1,5 +1,5 @@
-// let domain = "https://paywal-app-production.up.railway.app"; // cloud
-let domain = "http://localhost:8484"; // local
+// import domain from common.js file..!
+import { domain } from "./common.js";
 
 document.querySelector("form").addEventListener("submit", () => {
   login(event);
@@ -31,27 +31,27 @@ function login(e) {
   fetch(`${domain}/pws/login`, requestOptions)
     .then((response) => {
       if (response.status == 200) {
-        response.text().then(res => {
-
+        response.text().then((res) => {
           // Storing the Key to LS..
           localStorage.setItem("uuid", res);
 
           alert("Login Successful");
-          
+
           // Directing to Index.html..
           window.location.href = "index.html";
-        });  
-      }
-      else {
-        response.text().then(res => {
-
+        });
+      } else {
+        response.text().then((res) => {
           let obj = JSON.parse(res);
 
-          if (window.confirm(`${obj.message}`+" OR Press OK to Register to PWS application")) {
+          if (
+            window.confirm(
+              `${obj.message}` + " OR Press OK to Register to PWS application"
+            )
+          ) {
             window.location.href = "signup.html";
           }
-          
-        })
+        });
       }
     })
     .catch((error) => {

@@ -1,5 +1,6 @@
-// let domain = "https://paywal-app-production.up.railway.app"; // cloud
-let domain = "http://localhost:8484"; // local
+
+// import domain from common.js file..!
+import { domain } from "./common.js";
 
 document.querySelector("form").addEventListener("submit", () => {
   submit(event);
@@ -9,7 +10,7 @@ function submit(event) {
   event.preventDefault();
 
   let myHeaders = new Headers();
-  
+
   myHeaders.append("Content-Type", "application/json");
 
   let mobile = document.getElementById("mobile").value;

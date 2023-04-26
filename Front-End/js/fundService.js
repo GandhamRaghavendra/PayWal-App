@@ -1,9 +1,10 @@
-let domain = "http://localhost:8484"; // local
+
+// importing nav details from component/nav.js.
+import { nav, navContent } from "../component/nav.js";
 
 // import loadData from main.js file..!
-import { loadData } from "./common.js";
+import { loadData,domain } from "./common.js";
 
-import { nav, navContent } from "../component/nav.js";
 
 window.addEventListener("load", () => {
   document.querySelector("nav").innerHTML = nav();

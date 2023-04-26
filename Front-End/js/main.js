@@ -1,8 +1,6 @@
-// let domain = "https://paywal-app-production.up.railway.app"; // cloud
-let domain = "http://localhost:8484"; // local
 
-// import loadData from main.js file..!
-import { loadData } from "./common.js";
+// import loadData,domain from common.js file..!
+import { loadData, domain } from "./common.js";
 
 let key = localStorage.getItem("uuid") || null;
 
@@ -61,11 +59,11 @@ document.querySelector(".bill_service").addEventListener("click", () => {
 });
 
 function billService() {
-if (loginCheck()) {
-  window.location.href = "billService.html";
-} else {
-  if (window.confirm("Login first..")) window.location.href = "login.html";
-}
+  if (loginCheck()) {
+    window.location.href = "billService.html";
+  } else {
+    if (window.confirm("Login first..")) window.location.href = "login.html";
+  }
 }
 
 // Adding OnClick to beneficiary_service div..!
@@ -74,11 +72,11 @@ document.querySelector(".beneficiary_service").addEventListener("click", () => {
 });
 
 function beneficiaryService() {
-if (loginCheck()) {
-  window.location.href = "beneficiaryService.html";
-} else {
-  if (window.confirm("Login first..")) window.location.href = "login.html";
-}
+  if (loginCheck()) {
+    window.location.href = "beneficiaryService.html";
+  } else {
+    if (window.confirm("Login first..")) window.location.href = "login.html";
+  }
 }
 
 // Adding OnClick to transaction_service div..!
@@ -86,11 +84,11 @@ document.querySelector(".transaction_service").addEventListener("click", () => {
   transactionService();
 });
 function transactionService() {
-if (loginCheck()) {
-  window.location.href = "transactionService.html";
-} else {
-  if (window.confirm("Login first..")) window.location.href = "login.html";
-}
+  if (loginCheck()) {
+    window.location.href = "transactionService.html";
+  } else {
+    if (window.confirm("Login first..")) window.location.href = "login.html";
+  }
 }
 
 function loginSucc() {
