@@ -156,6 +156,7 @@
           type="text"
           id="BeneficiaryName"
           name="BeneficiaryName"
+          minlength="5"
           required
         />
         <label class="label" for="BeneficiaryMobile">BeneficiaryMobile:</label>
@@ -166,16 +167,14 @@
           name="BeneficiaryMobile"
           required
         />
-        <button class="button">Add Beneficiary</button>
+        <button class="button addBene">Add Beneficiary</button>
       </div>
     </div>
   </body>
 </html>
 <script type="module">
-
   // importing domain from common.js.
-  import{domain} from "./js/common.js";
-
+  import { loadData, domain } from "./js/common.js";
 
   // importing nav details form component/nav.js
   import { nav, navContent } from "./component/nav.js";
@@ -187,7 +186,6 @@
     let obj = JSON.parse(localStorage.getItem("data"));
     let beneficiaryList = obj.beneficiaryList;
 
-    console.log(beneficiaryList[0]);
     appendAcc(beneficiaryList);
   });
 
@@ -205,6 +203,114 @@
     }
   });
 
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-ADD BENEFICIARY SECTION-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  // adding onclick to add Beneficiary button.
+  document.querySelector(".addBene").addEventListener("click", () => {
+    let name = document.querySelector("#BeneficiaryName").value;
+
+    let mobile = document.querySelector("#BeneficiaryMobile").value;
+
+    let mes = "Provide Valid Data";
+
+    if (name.length >= 5 && mobile.length == 10) {
+      // calling addBeneficiary method by providing valid data.
+      addBeneficiary(name, mobile);
+    } else {
+      if (name.length < 5) mes = "Name size min 5";
+      else if (mobile.length != 10) mes = "Invalid mobile number";
+      alert(mes);
+    }
+  });
+
+  function addBeneficiary(name, mobile) {
+    let key = localStorage.getItem("uuid");
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      name: name,
+      mobile: mobile,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${domain}/pws/beneficiary/add?key=${key}`, requestOptions).then(
+      (response) => {
+        if (response.status == 200) {
+          alert("Beneficiary added Successfully..");
+
+          // This will update our LS data..!
+          loadData();
+
+          setInterval(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          response.text().then((res) => {
+            let obj = JSON.parse(res);
+
+            alert(`${obj.message}`);
+
+            depositFieldClean();
+          });
+        }
+      }
+    );
+  }
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-END-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-REMOVE BENEFICIARY SECTION-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+  function deleteBeneficiary(name, mobile) {
+    let key = localStorage.getItem("uuid");
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      name: name,
+      mobile: mobile,
+    });
+
+    var requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${domain}/pws/beneficiary/delete?key=${key}`, requestOptions).then(
+      (response) => {
+        if (response.status == 200) {
+          alert("Beneficiary removed Successfully..");
+
+          // This will update our LS data..!
+          loadData();
+
+          setInterval(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          response.text().then((res) => {
+            let obj = JSON.parse(res);
+
+            alert(`${obj.message}`);
+
+            depositFieldClean();
+          });
+        }
+      }
+    );
+  }
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-END-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
   // this will append beneficiaryList to dropdown-content div..!
   function appendAcc(data) {
     let cont = document.querySelector(".dropdown-content");
@@ -214,10 +320,10 @@
       // add class to new div
       newDiv.classList.add("bank-account");
       newDiv.innerHTML = `
-          <p><b>${ind + 1}</b></p>
-          <p>Name: <b>${el.name}</b></p>
-          <p>Mobile: <b>${el.mobile}</b></p>
-        `;
+      <p><b>${ind + 1}</b></p>
+      <p>Name: <b>${el.name}</b></p>
+      <p>Mobile: <b>${el.mobile}</b></p>
+      `;
       // creating button to append..!
       let btn = document.createElement("button");
       btn.innerHTML = "Delete";
@@ -227,7 +333,7 @@
 
       // Adding onclick to button..!
       btn.onclick = () => {
-        deleteAcc(ind);
+        deleteBeneficiary(el.name, el.mobile);
       };
 
       // appending button to all account div..!
@@ -235,10 +341,5 @@
 
       cont.append(newDiv);
     });
-  }
-
-  // this will delete acc from wallet...!
-  function deleteAcc(i) {
-    console.log(i);
   }
 </script>
