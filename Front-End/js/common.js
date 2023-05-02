@@ -1,5 +1,5 @@
-// let domain = "https://paywal-app-production.up.railway.app"; // cloud
-let domain = "http://localhost:8484"; // local
+let domain = "https://paywal-app-production.up.railway.app"; // cloud
+// let domain = "http://localhost:8484"; // local
 
 // This Function is  used to load the User Data with the Key present in LS..
 function loadData() {
