@@ -20,3 +20,6 @@ This is a Payment Wallet application that provides `RESTful` web services for ma
   - Vs Code
 ## Back-End
 ## Front-End
+### Step-1
+<img src="/images/home.png" alt="Alt text" style="width: 80%; display: block; margin: 0 auto;">
+
