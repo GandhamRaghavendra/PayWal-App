@@ -1,4 +1,5 @@
 # [PayWal-App](https://paywal.netlify.app/index.html)
+This is a Payment Wallet application that provides `RESTful` web services for managing wallet transactions. The application also includes a simple HTML/CSS/JS frontend for viewing and managing wallet transactions.
 
 ## Techstack/tools Used 
 - Back-end
@@ -17,3 +18,5 @@
   - CSS
   - Js
   - Vs Code
+## Back-End
+## Front-End
