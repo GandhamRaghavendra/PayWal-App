@@ -1,5 +1,5 @@
 # [PayWal-App](https://paywal.netlify.app/index.html)
-This is a Payment Wallet application that provides `RESTful` web services for managing wallet transactions. The application also includes a simple HTML/CSS/JS frontend for viewing and managing wallet transactions.
+PayWal is a Payment Wallet application that integrates both frontend and backend. The backend part of the application is built using the Spring Boot framework and provides RESTful web services for managing wallet transactions. The frontend part of the application is built using HTML, CSS, and JavaScript.
 
 ## Techstack/tools Used 
 - Back-end
